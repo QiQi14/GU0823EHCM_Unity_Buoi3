@@ -1,53 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    private Transform target;
-
+    [SerializeField]
+    private float maxHP;
+    [SerializeField]
+    private float currentHP;
+   
     [SerializeField]
     private float speed = 1f;
-    private float rotationSpeed = 0.025f;
-
+    [SerializeField]
     private Rigidbody2D rb;
 
     [SerializeField]
-    private Transform EnemyShapeTransform;
+    private Transform enemy;
 
+    private Transform target;
+
+    [SerializeField]
+    private Transform hpBar;
+    private Vector2 hpScale;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        hpScale = hpBar.localScale;
+        currentHP = maxHP;
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!target)
+        getTarger();
+        if (target == true)
         {
-            getTarget();
-        } else
-        {
-            RotationEnemyFace();
+            Vector2 targetDirection = target.position - enemy.position;
+            float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90F;
+            Quaternion q = Quaternion.Euler(new Vector3(0, 0, angle));
+            enemy.localRotation = Quaternion.Slerp(enemy.localRotation, q, 0.025f);
         }
     }
-
     private void FixedUpdate()
     {
-        rb.velocity = EnemyShapeTransform.up * speed;
+        rb.velocity = enemy.up * speed * 0.5f;
     }
-
-    private void RotationEnemyFace()
-    {
-        Vector2 targetDirection = target.position - EnemyShapeTransform.position;
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90F;
-        Quaternion q = Quaternion.Euler(new Vector3(0, 0, angle));
-        EnemyShapeTransform.localRotation = Quaternion.Slerp(EnemyShapeTransform.localRotation, q, rotationSpeed);
-    }
-
-    private void getTarget()
+    private void getTarger()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+    public void ReceivedHP(float damage)
+    {
+        currentHP = currentHP - damage;
+        if (currentHP <= 0)
+        {
+            hpBar.localScale = new Vector2(0, hpScale.y);
+            Destroy(enemy.gameObject);
+        }
+        else
+        {
+            hpBar.localScale = new Vector2(hpScale.x * (currentHP / maxHP), hpScale.y);
+        }
+        
     }
 }

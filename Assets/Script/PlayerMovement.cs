@@ -5,36 +5,47 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 5F;
+    public float speed = 5f;
 
     private Rigidbody2D rb;
-
     private Vector2 movement;
-
-    private PlayerBehavior behavior;
-
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        behavior = GetComponent<PlayerBehavior>();
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-
-        if (movement.x != 0 || movement.y != 0)
+        if(movement.x > 0)
         {
-            behavior.StaminaChange(-behavior.currentSP / 1000);
+            PlayerBehavior playerBehavior = gameObject.GetComponent<PlayerBehavior>();
+            playerBehavior.ReceivedSP(0.01f);
+        } 
+        else if(movement.x < 0) 
+        {
+            PlayerBehavior playerBehavior = gameObject.GetComponent<PlayerBehavior>();
+            playerBehavior.ReceivedSP(0.01f);
+        }
+        else if (movement.y > 0)
+        {
+            PlayerBehavior playerBehavior = gameObject.GetComponent<PlayerBehavior>();
+            playerBehavior.ReceivedSP(0.01f);
+        }
+        else if (movement.y < 0)
+        {
+            PlayerBehavior playerBehavior = gameObject.GetComponent<PlayerBehavior>();
+            playerBehavior.ReceivedSP(0.01f);
         }
         else
         {
-            behavior.StaminaChange(behavior.currentSP / 1000);
+            PlayerBehavior playerBehavior = gameObject.GetComponent<PlayerBehavior>();
+            playerBehavior.ReceivedSP(-0.01f);
         }
     }
-
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
