@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float maxHP;
-    public float currentHP;
-
-    public float maxSP;
-    public float currentSP;
+    [SerializeField]
+    private float maxHP;
+    [SerializeField]
+    private float currentHP;
+    [SerializeField]
+    private float maxSP;
+    [SerializeField]
+    private float currentSP;
 
     [SerializeField]
     private Transform hpBar;
     private Vector2 hpScale;
-
     [SerializeField]
     private Transform spBar;
     private Vector2 spScale;
-
     // Start is called before the first frame update
     void Start()
     {
         hpScale = hpBar.localScale;
-        currentHP = maxHP; //50
-
+        currentHP = maxHP;
         spScale = spBar.localScale;
         currentSP = maxSP;
     }
@@ -31,49 +31,36 @@ public class PlayerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void ReceiveDamage(float damage)
+    public void ReceivedHP(float damage)
     {
-        float estimateHP = currentHP - damage;
-        if (estimateHP <= 0)
+        currentHP = currentHP - damage;
+        if (currentHP <= 0)
         {
-            currentHP = 0;
+            hpBar.localScale = new Vector2(0, hpScale.y);
         }
         else
         {
-            currentHP = estimateHP;
+            hpBar.localScale = new Vector2(hpScale.x * (currentHP / maxHP), hpScale.y);
         }
-        float newScale = hpScale.x * (currentHP / maxHP); 
-        hpBar.localScale = new Vector2(newScale, hpScale.y);
     }
 
-    public void ReceiveHeal(float heal)
+    public void ReceivedSP( float damage)
     {
-        float estimateHP = currentHP + heal;
-        if (estimateHP > maxHP)
+        currentSP = currentSP - damage;
+        if(currentSP <= 0)
         {
-            currentHP = maxHP;
-        } else
-        {
-            currentHP = estimateHP;
+            spBar.localScale = new Vector2(0, spScale.y);
         }
-        float newScale = hpScale.x * (currentHP / maxHP); 
-        hpBar.localScale = new Vector2(newScale, hpScale.y);
-    }
-
-    public void StaminaChange(float change)
-    {
-        float estimateSP = currentSP + change;
-        if (estimateSP > maxSP || estimateSP <= 0)
+        else if (currentSP > 0 && currentSP < 50)
         {
-            return;
+            spBar.localScale = new Vector2(spScale.x * (currentSP / maxSP), spScale.y);
         }
-
-        currentSP = estimateSP;
-
-        float newScale = spScale.x * (currentSP / maxSP);
-        spBar.localScale = new Vector2(newScale, spScale.y);
+        else if(currentSP >= 50)
+        {
+            spBar.localScale = new Vector2(spScale.x, spScale.y);
+        }
     }
 }
