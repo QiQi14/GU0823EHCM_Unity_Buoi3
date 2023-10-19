@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 5f;
+    public float speed = 5f;
 
     private Rigidbody2D rb;
     private Vector2 movement;

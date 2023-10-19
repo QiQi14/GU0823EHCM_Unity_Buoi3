@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehavior : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class PlayerBehavior : MonoBehaviour
         if (currentHP <= 0)
         {
             hpBar.localScale = new Vector2(0, hpScale.y);
-           
+            SceneManager.LoadScene("Buoi3");
         }
         else
         {
@@ -50,18 +51,23 @@ public class PlayerBehavior : MonoBehaviour
 
     public void ReceivedSP( float damage)
     {
+        PlayerMovement playerMovement = gameObject.GetComponent<PlayerMovement>();
         currentSP = currentSP - damage;
         if(currentSP <= 0)
         {
             spBar.localScale = new Vector2(0, spScale.y);
+           
+            playerMovement.speed = 0f;
         }
         else if (currentSP > 0 && currentSP < 50)
         {
             spBar.localScale = new Vector2(spScale.x * (currentSP / maxSP), spScale.y);
+            playerMovement.speed = 5f;
         }
         else if(currentSP >= 50)
         {
             spBar.localScale = new Vector2(spScale.x, spScale.y);
+            playerMovement.speed = 5f;
         }
     }
 }

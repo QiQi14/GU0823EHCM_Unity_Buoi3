@@ -1186,8 +1186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 7288225529374305248, guid: 0426537d4103a204198df190566bc82a, type: 3}
-  xRange: {x: -8, y: 8}
-  yRange: {x: -4, y: 4}
+  xRange: {x: -6, y: 6}
+  yRange: {x: -2, y: 2}
   zRange: {x: 0, y: 0}
   numberOfPrefabsPerWave: 1
   timeBetweenWaves: 2
