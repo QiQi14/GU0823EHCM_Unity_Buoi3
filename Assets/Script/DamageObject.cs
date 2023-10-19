@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Timeline;
 
-public class DamageObject : MonoBehaviour
+public class NewBehaviourScript : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -13,4 +15,5 @@ public class DamageObject : MonoBehaviour
             playerBehavior.ReceiveDamage(20);
         }
     }
+
 }
