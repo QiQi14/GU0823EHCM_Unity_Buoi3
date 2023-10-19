@@ -57,10 +57,12 @@ public class EnemyBehavior : MonoBehaviour
         if (currentHP <= 0)
         {
             hpBar.localScale = new Vector2(0, hpScale.y);
+            Destroy(enemy.gameObject);
         }
         else
         {
             hpBar.localScale = new Vector2(hpScale.x * (currentHP / maxHP), hpScale.y);
         }
+        
     }
 }

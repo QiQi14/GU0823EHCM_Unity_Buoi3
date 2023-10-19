@@ -40,6 +40,7 @@ public class PlayerBehavior : MonoBehaviour
         if (currentHP <= 0)
         {
             hpBar.localScale = new Vector2(0, hpScale.y);
+           
         }
         else
         {

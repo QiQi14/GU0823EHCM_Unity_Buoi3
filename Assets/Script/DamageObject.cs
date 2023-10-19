@@ -15,6 +15,7 @@ public class DamageObject : MonoBehaviour
         {
             EnemyBehavior enemyBehavior = collision.gameObject.GetComponent<EnemyBehavior>();
             enemyBehavior.ReceivedHP(10);
+            
         }
     }
 }
