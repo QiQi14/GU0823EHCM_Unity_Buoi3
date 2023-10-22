@@ -21,7 +21,8 @@ public class SpawnPoint : MonoBehaviour
         while (canSpawn)
         {
             yield return wait;
-            Instantiate(spawnObject, transform.position, Quaternion.identity);
+            GameObject enemy = Instantiate(spawnObject, transform.position, Quaternion.identity) as GameObject;
+            enemy.tag = "Enemy";
         }
     } 
 

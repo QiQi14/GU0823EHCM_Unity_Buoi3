@@ -2186,11 +2186,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!4 &529165392 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7188528602791493044, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
-  m_PrefabInstance: {fileID: 8330225800039564154}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &770245248
 GameObject:
   m_ObjectHideFlags: 3
@@ -13234,20 +13229,8 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3984808998099382940, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
-      propertyPath: hpBar
-      value: 
-      objectReference: {fileID: 529165392}
-    - target: {fileID: 3984808998099382940, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
       propertyPath: health
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3984808998099382940, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
-      propertyPath: maxtHP
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3984808998099382940, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5038143447490491345, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13287,18 +13270,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5038143447490491345, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7890222077486369485, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7890222077486369485, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
-      propertyPath: m_LinearDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7890222077486369485, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}
-      propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8455849826064301418, guid: 100dc78591582b24fbfcf36cd19e7cde, type: 3}

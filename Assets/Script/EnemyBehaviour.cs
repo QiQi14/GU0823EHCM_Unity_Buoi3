@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     private Transform target;
 
@@ -113,6 +113,38 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    //public void ReceiveDamage(float damage)
+    //{
+    //    Health = Health - damage;
+
+    //    if (Health <= 0)
+    //    {
+    //        hpBar.localScale = new Vector2(0, hpScale.y);
+    //        return;
+    //    }
+
+    //    float newScale = hpScale.x * (Health / maxtHP);
+    //    hpBar.localScale = new Vector2(newScale, hpScale.y);
+
+
+    //}
+
+    public void ReceiveDamage(float damage, Vector2 knockback)
+    {
+        Health = Health - damage;
+
+        if (Health <= 0)
+        {
+            hpBar.localScale = new Vector2(0, hpScale.y);
+            return;
+        }
+
+        float newScale = hpScale.x * (Health / maxtHP);
+        hpBar.localScale = new Vector2(newScale, hpScale.y);
+
+        rb.AddForce(knockback);
+    }
+
     public void ReceiveDamage(float damage)
     {
         Health = Health - damage;
@@ -126,7 +158,5 @@ public class Enemy : MonoBehaviour
         float newScale = hpScale.x * (Health / maxtHP);
         hpBar.localScale = new Vector2(newScale, hpScale.y);
 
-
     }
-
 }

@@ -8,6 +8,7 @@ public class SwordAttack : MonoBehaviour
     public Collider2D swordCollider;
     public float damage = 3;
     Vector2 rightAttackOffset;
+    public float knockbackForce = 5000f;
 
     private void Start()
     {
@@ -32,16 +33,31 @@ public class SwordAttack : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (other.tag == "Enemy")
+        IDamageable damageableObject = collider.GetComponent<IDamageable>();
+        Debug.Log(collider.tag);
+        if (collider.tag == "Enemy" && damageableObject != null)
         {
-            Enemy enemy = other.GetComponent<Enemy>(); 
+
+            Enemy enemy = collider.GetComponent<Enemy>(); 
             if (enemy != null)
             {
+
                 enemy.Health -= damage;
-                enemy.ReceiveDamage(damage);
+                //enemy.ReceiveDamage(damage);
+
+                Vector3 parentPosition = gameObject.GetComponentInParent<Transform>().position;
+
+                Vector2 direction = (Vector2)(collider.gameObject.transform.position - parentPosition).normalized;
+
+                Vector2 knockback = direction * knockbackForce;
+
+                enemy.ReceiveDamage(damage, knockback);
             }
+        } else
+        {
+            Debug.LogWarning("Check tag Enemy and Collider not implement IDamageable");
         }
     }
 }
