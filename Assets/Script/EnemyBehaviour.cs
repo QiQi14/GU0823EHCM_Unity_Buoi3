@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -18,7 +20,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private float distance;
 
-
+    public float knockbackForce = 300f;
 
     [SerializeField]
     private Transform hpBar;
@@ -48,7 +50,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     float health;
 
-    public float maxtHP;
+    public float maxHP;
 
     private void Start()
     {
@@ -57,7 +59,7 @@ public class Enemy : MonoBehaviour, IDamageable
         getTarget();
 
         hpScale = hpBar.localScale;
-        Health = maxtHP;
+        Health = maxHP;
     }
 
     void Update()
@@ -106,10 +108,16 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Collider2D collider = collision.collider;
         if (collision.gameObject.tag == "Player")
         {
+
+            Vector2 direction = (Vector2)(collider.gameObject.transform.position - transform.position).normalized;
+            Vector2 knockback = direction * knockbackForce;
+
             PlayerBehavior playerBehavior = collision.gameObject.GetComponent<PlayerBehavior>();
-            playerBehavior.ReceiveDamage(20);
+            playerBehavior.ReceiveDamage(20, knockback);
+
         }
     }
 
@@ -139,10 +147,10 @@ public class Enemy : MonoBehaviour, IDamageable
             return;
         }
 
-        float newScale = hpScale.x * (Health / maxtHP);
+        float newScale = hpScale.x * (Health / maxHP);
         hpBar.localScale = new Vector2(newScale, hpScale.y);
-
         rb.AddForce(knockback);
+
     }
 
     public void ReceiveDamage(float damage)
@@ -155,8 +163,7 @@ public class Enemy : MonoBehaviour, IDamageable
             return;
         }
 
-        float newScale = hpScale.x * (Health / maxtHP);
+        float newScale = hpScale.x * (Health / maxHP);
         hpBar.localScale = new Vector2(newScale, hpScale.y);
-
     }
 }

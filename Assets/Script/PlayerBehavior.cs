@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBehavior : MonoBehaviour
+public class PlayerBehavior : MonoBehaviour, IDamageable
 {
     public float maxHP;
     public float currentHP;
@@ -22,7 +22,12 @@ public class PlayerBehavior : MonoBehaviour
     Animator animator;
 
     private PlayerController player_controller;
+    float health;
 
+    private Rigidbody2D rb;
+
+
+    public float Health { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -37,12 +42,31 @@ public class PlayerBehavior : MonoBehaviour
 
         player_controller = GetComponent<PlayerController>();
 
+        rb = GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ReceiveDamage(float damage, Vector2 knockback)
+    {
+        currentHP = currentHP - damage;
+
+        if (currentHP <= 0)
+        {
+            rb.simulated = false;
+            animator.SetTrigger("isDead");
+            hpBar.localScale = new Vector2(0, hpScale.y);
+            return;
+        }
+
+        float newScale = hpScale.x * (currentHP / maxHP);
+        hpBar.localScale = new Vector2(newScale, hpScale.y);
+        rb.AddForce(knockback);
     }
 
     public void ReceiveDamage(float damage)

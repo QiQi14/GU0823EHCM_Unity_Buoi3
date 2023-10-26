@@ -36,7 +36,7 @@ public class SwordAttack : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         IDamageable damageableObject = collider.GetComponent<IDamageable>();
-        Debug.Log(collider.tag);
+        // && playerBehavior.currentHP > 0
         if (collider.tag == "Enemy" && damageableObject != null)
         {
 
@@ -52,7 +52,6 @@ public class SwordAttack : MonoBehaviour
                 Vector2 direction = (Vector2)(collider.gameObject.transform.position - parentPosition).normalized;
 
                 Vector2 knockback = direction * knockbackForce;
-
                 enemy.ReceiveDamage(damage, knockback);
             }
         } else

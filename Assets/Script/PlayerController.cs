@@ -131,15 +131,20 @@ public class PlayerController : MonoBehaviour
     
     public void SwordAttack()
     {
-        LockMovement();
-        if(spriteRenderer.flipX == true)
+        if (behaviour.currentHP > 0)
         {
-            swordAttack.AttackLeft();
-        } else
-        {
-            swordAttack.AttackRight();
+            LockMovement();
+            if (spriteRenderer.flipX == true)
+            {
+                swordAttack.AttackLeft();
+            }
+            else
+            {
+                swordAttack.AttackRight();
 
+            }
         }
+
     }
 
     public void EndSwordAttack()

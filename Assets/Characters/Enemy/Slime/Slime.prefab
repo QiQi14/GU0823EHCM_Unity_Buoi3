@@ -164,8 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  knockbackForce: 5000
   hpBar: {fileID: 7188528602791493044}
-  maxtHP: 15
+  maxHP: 10
 --- !u!95 &8455849826064301418
 Animator:
   serializedVersion: 5

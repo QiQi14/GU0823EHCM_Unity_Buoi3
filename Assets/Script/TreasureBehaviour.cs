@@ -10,8 +10,10 @@ public class TreasureBehaviour : MonoBehaviour
         Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("Healingg");
             PlayerBehavior playerBehavior = collision.gameObject.GetComponent<PlayerBehavior>();
-            playerBehavior.HealingHealth(-playerBehavior.maxHP / 300);
+            playerBehavior.HealingHealth(playerBehavior.maxHP / 300);
+
         }
     }
 }
