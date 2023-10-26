@@ -7,8 +7,11 @@ public class SpawnPoint : MonoBehaviour
     [SerializeField]
     GameObject spawnObject;
 
-    private float spawnTime = 1f;
+    public float spawnTime = 1f;
     public bool canSpawn = true;
+    public bool infinite = false;
+    public int spawnNumber = 5;
+
     void Start()
     {
         StartCoroutine(spawnEnemy());
@@ -17,11 +20,25 @@ public class SpawnPoint : MonoBehaviour
     public IEnumerator spawnEnemy()
     {
         WaitForSeconds wait = new WaitForSeconds(spawnTime);
-
-        while (true)
+        if (canSpawn == true && infinite == true)
         {
-            yield return wait;
-            Instantiate(spawnObject, transform.position, Quaternion.identity);
+            while (true)
+            {
+                yield return wait;
+                GameObject enemy = Instantiate(spawnObject, transform.position, Quaternion.identity) as GameObject;
+                enemy.tag = "Enemy";
+            }
         }
-    }
+        else if (infinite == false && canSpawn == true)
+        {
+            for (int i = 0; i < spawnNumber; i++)
+            {
+                yield return wait;
+                GameObject enemy = Instantiate(spawnObject, transform.position, Quaternion.identity) as GameObject;
+                enemy.tag = "Enemy";
+            }
+        }
+
+    } 
+
 }
